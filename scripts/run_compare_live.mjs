@@ -20,7 +20,10 @@ function flag(name, fallback) {
 }
 const domain = flag("--domain", null);
 const model = flag("--model", process.env.DEEPSEEK_MODEL || "deepseek-chat");
-const apiBase = (process.env.DEEPSEEK_API_BASE || "https://api.deepseek.com").replace(/\/+$/, "");
+// 规范化 base：剥离尾部斜杠与末尾已有的 /v1（或 /v1/），使拼接 /v1/chat/completions 时不重复。
+const apiBase = (process.env.DEEPSEEK_API_BASE || "https://api.deepseek.com")
+  .replace(/\/+$/, "")
+  .replace(/\/v1$/i, "");
 const apiKey = process.env.DEEPSEEK_API_KEY || "";
 const timeout = Number(flag("--timeout", "60"));
 const delay = Number(flag("--delay", "0.3"));
