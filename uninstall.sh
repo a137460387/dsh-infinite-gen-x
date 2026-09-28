@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-PLUGIN_NAME="dsh-infinite-gen-5"
-LEGACY_PLUGINS=("dsh-infinite-gen-5" "dsh-infinite-gen-3" "dsh-infinite-gen-1" "dsh-infinite-gen-2")
+PLUGIN_NAME="dsh-infinite-gen-x"
+LEGACY_PLUGINS=("dsh-infinite-gen-x" "dsh-infinite-gen-3" "dsh-infinite-gen-1" "dsh-infinite-gen-2")
 DSH_ROOT="${DSH_HOME:-$HOME/.dsh}"
 PLUGINS_DIR="${DSH_ROOT}/plugins"
 

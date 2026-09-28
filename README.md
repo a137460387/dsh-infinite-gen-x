@@ -1,12 +1,12 @@
-# ⚔️ DeepSeek-V4.1 / V4 Flash 网络安全红队工具（无限五代）v0.5.0
+# ⚔️ DeepSeek-V4.1 / V4 Flash 网络安全红队工具（无限X代）v0.6.0
 
 <p align="center">
-  <img src="assets/banner.png" alt="无限五代 Infinite Generation Five" width="100%" />
+  <img src="assets/banner.png" alt="无限X代 Infinite Generation X" width="100%" />
 </p>
 
 <p align="center">
-  <a href="dsh://plugin/install?id=dsh-infinite-gen-5&name=%E6%97%A0%E9%99%90%E5%9B%9B%E4%BB%A3&version=0.5.0&repo=Minglink%2Fdsh-infinite-gen-5&permissions=%E7%B3%BB%E7%BB%9F%E6%8F%90%E7%A4%BA%E8%AF%8D%E6%B3%A8%E5%85%A5%2C%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%8A%B6%E6%80%81%E6%9D%A1&downloadUrl=https%3A%2F%2Fgithub.com%2FMinglink%2Fdsh-infinite-gen-5%2Farchive%2Frefs%2Fheads%2Fmaster.zip">
-    <img src="https://img.shields.io/badge/DeepSeek%20Harness-🚀%20唤起桌面客户端一键安装无限五代-10B981?style=for-the-badge&logo=deepseek&logoColor=white" alt="唤起桌面客户端一键安装" />
+  <a href="dsh://plugin/install?id=dsh-infinite-gen-x&name=%E6%97%A0%E9%99%90%E5%9B%9B%E4%BB%A3&version=0.6.0&repo=Minglink%2Fdsh-infinite-gen-x&permissions=%E7%B3%BB%E7%BB%9F%E6%8F%90%E7%A4%BA%E8%AF%8D%E6%B3%A8%E5%85%A5%2C%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%8A%B6%E6%80%81%E6%9D%A1&downloadUrl=https%3A%2F%2Fgithub.com%2FMinglink%2Fdsh-infinite-gen-x%2Farchive%2Frefs%2Fheads%2Fmaster.zip">
+    <img src="https://img.shields.io/badge/DeepSeek%20Harness-🚀%20唤起桌面客户端一键安装无限X代-10B981?style=for-the-badge&logo=deepseek&logoColor=white" alt="唤起桌面客户端一键安装" />
   </a>
 </p>
 
@@ -35,7 +35,7 @@
 >
 > **【零容忍严正申明】**：本项目坚决反对并严禁任何形式的违法犯罪行为！本项目开发者绝不支持、不鼓励、不协助任何未授权网络攻击、漏洞利用、数据窃取、非法侵入计算机信息系统或生成违法违禁内容的活动。
 >
-> 1. **合法受控范围限定**：本项目（`dsh-infinite-gen-5`）定位为纯粹的网络安全红队科研工具与鲁棒性基准评测套件。**严禁在未经所有者合法书面授权的目标、公网在线系统或生产业务上运行本项目**。一切测试行为必须严格限制在**离线本地合成靶标（Local Synthetic Fixtures）、授权网络安全演练靶场及合规实验室受控环境**中进行。
+> 1. **合法受控范围限定**：本项目（`dsh-infinite-gen-x`）定位为纯粹的网络安全红队科研工具与鲁棒性基准评测套件。**严禁在未经所有者合法书面授权的目标、公网在线系统或生产业务上运行本项目**。一切测试行为必须严格限制在**离线本地合成靶标（Local Synthetic Fixtures）、授权网络安全演练靶场及合规实验室受控环境**中进行。
 > 2. **严禁违法与违禁用途**：使用者严禁利用本项目直接或间接从事：
 >    - 任何违反《中华人民共和国刑法》、《中华人民共和国网络安全法》、《中华人民共和国数据安全法》、《中华人民共和国个人信息保护法》等法律法规的行为；
 >    - 未经授权渗透、攻击公私机构计算机信息系统，实施勒索、破坏、撞库或传播恶意载荷；
@@ -47,23 +47,23 @@
 
 ---
 
-> 🔥 **V4.1-DeepSeek Flash 网络安全红队工具（无限五代）v0.5.0**。针对 V4.1 强化学习对抗进行深度适配与支持，支持桌面端与客户端一键安装。如果这个开源网安项目对你有帮助，欢迎点亮 Star ⭐。
+> 🔥 **V4.1-DeepSeek Flash 网络安全红队工具（无限X代）v0.6.0**。针对 V4.1 强化学习对抗进行深度适配与支持，支持桌面端与客户端一键安装。如果这个开源网安项目对你有帮助，欢迎点亮 Star ⭐。
 > 
-> **v0.5.0 纯净红队版**：原生采用零工具面架构，杜绝模型思考阶段的决策噪音；注入双层协同内核，仅保留系统提示词注入与实时状态投影。**严正声明：本项目严格打击与抵制（且不支持）模型生成 NSFW 等任何违法违规、违禁不良内容，技术体系仅限用于合法授权的逆向工程与网络安全研究。**
+> **v0.6.0 纯净红队版**：原生采用零工具面架构，杜绝模型思考阶段的决策噪音；注入双层协同内核，仅保留系统提示词注入与实时状态投影。**严正声明：本项目严格打击与抵制（且不支持）模型生成 NSFW 等任何违法违规、违禁不良内容，技术体系仅限用于合法授权的逆向工程与网络安全研究。**
 
 ---
 
-> ### 🧬 v0.5.0 双层内核说明（Dual-Layer Kernel）
+> ### 🧬 v0.6.0 双层内核说明（Dual-Layer Kernel）
 >
-> - 注入槽位：`infinite-gen-5:global-system-prompt`（Order 100）+ `infinite-gen-5:dual-layer-reinforce`（Order 200），
+> - 注入槽位：`infinite-gen-x:global-system-prompt`（Order 100）+ `infinite-gen-x:dual-layer-reinforce`（Order 200），
 >   由 `index.js` 的 `DUAL_LAYER_INJECTION` 开关控制（改 `false` 即单段注入，行为等价）。
-> - `prompts/` 下三个内核文件（`infinite-gen-3.md` / `infinite-gen-5.md` / `infinite-gen-5.1-flash.md`）
+> - `prompts/` 下三个内核文件（`infinite-gen-3.md` / `infinite-gen-x.md` / `infinite-gen-x.1-flash.md`）
 
 ---
 
 ## 📊 世代架构与能力对比
 
-| 维度 | 无限二代 | 无限三代 | 无限五代 (v0.5.0) |
+| 维度 | 无限二代 | 无限三代 | 无限X代 (v0.6.0) |
 |---|---|---|---|
 | **目标模型** | V3 / 早期 V4 | DeepSeek-V4 (mHC) | DeepSeek-V4.1 / V4-Pro / Flash 全系列 |
 | **运行时架构** | 单层提示词 | 安全基准版单层 | **双层协同注入（通用内核 + 强化镜像同源同构）** |
@@ -78,7 +78,7 @@
 ## 📁 项目目录结构
 
 ```
-无限五代v0.5.0/
+无限X代v0.6.0/
 ├── 🚀 一键安装与维护套件
 │   ├── install.ps1              # Windows 一键自动安装（自动配置环境，注册协议）
 │   ├── install.bat              # Windows 快捷双击批处理
@@ -86,16 +86,16 @@
 │   ├── uninstall.ps1            # Windows 一键卸载
 │   └── uninstall.sh             # Linux / macOS 一键卸载
 ├── 🧩 核心插件装载面 (标准 Cordis 架构)
-│   ├── package.json             # 插件元数据（dsh-infinite-gen-5 v0.5.0）
+│   ├── package.json             # 插件元数据（dsh-infinite-gen-x v0.6.0）
 │   ├── cordis.patch.yml         # 核心 patch 声明
 │   ├── index.js                 # 插件核心入口（双层提示词注入 + profile 元数据 + 会话投影）
-│   ├── client.js                # 客户端半体（「⚫ 无限五代 v0.5.0」状态条）
+│   ├── client.js                # 客户端半体（「⚫ 无限X代 v0.6.0」状态条）
 │   └── HARNESS_PLUGIN.md        # 插件规范说明
 ├── 📜 网络安全红队系统提示词本体
 │   └── prompts/
 │       ├── infinite-gen-3.md          # 三代经典内核
-│       ├── infinite-gen-5.md          # 四代通用内核（输出契约 + 拒绝对抗 + 全域槽位）
-│       └── infinite-gen-5.1-flash.md  # V4.1 强化镜像层（训练器车道 + 浅推理 + 元数据提取）
+│       ├── infinite-gen-x.md          # 四代通用内核（输出契约 + 拒绝对抗 + 全域槽位）
+│       └── infinite-gen-x.1-flash.md  # V4.1 强化镜像层（训练器车道 + 浅推理 + 元数据提取）
 ├── 📖 文档中心
 │   ├── README.md                # 综合主说明文档（本文件）
 │   └── LICENSE                  # MIT License
@@ -124,31 +124,31 @@
 > 🌐 **插件生态市场**：[DeepSeek Harness Hub - DeepSeek 官方与开源生态市场 | 插件发现与一键安装](https://deepseek.stream/)
 
 <p align="center">
-  <a href="dsh://plugin/install?id=dsh-infinite-gen-5&name=%E6%97%A0%E9%99%90%E5%9B%9B%E4%BB%A3&version=0.5.0&repo=Minglink%2Fdsh-infinite-gen-5&permissions=%E7%B3%BB%E7%BB%9F%E6%8F%90%E7%A4%BA%E8%AF%8D%E6%B3%A8%E5%85%A5%2C%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%8A%B6%E6%80%81%E6%9D%A1&downloadUrl=https%3A%2F%2Fgithub.com%2FMinglink%2Fdsh-infinite-gen-5%2Farchive%2Frefs%2Fheads%2Fmaster.zip">
-    <img src="https://img.shields.io/badge/DeepSeek%20Harness-🚀%20唤起桌面客户端一键安装无限五代-10B981?style=for-the-badge&logo=deepseek&logoColor=white" alt="唤起客户端一键安装" />
+  <a href="dsh://plugin/install?id=dsh-infinite-gen-x&name=%E6%97%A0%E9%99%90%E5%9B%9B%E4%BB%A3&version=0.6.0&repo=Minglink%2Fdsh-infinite-gen-x&permissions=%E7%B3%BB%E7%BB%9F%E6%8F%90%E7%A4%BA%E8%AF%8D%E6%B3%A8%E5%85%A5%2C%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%8A%B6%E6%80%81%E6%9D%A1&downloadUrl=https%3A%2F%2Fgithub.com%2FMinglink%2Fdsh-infinite-gen-x%2Farchive%2Frefs%2Fheads%2Fmaster.zip">
+    <img src="https://img.shields.io/badge/DeepSeek%20Harness-🚀%20唤起桌面客户端一键安装无限X代-10B981?style=for-the-badge&logo=deepseek&logoColor=white" alt="唤起客户端一键安装" />
   </a>
 </p>
 
 🔗 **原生协议链接：**
 
 ```
-dsh://plugin/install?id=dsh-infinite-gen-5&name=%E6%97%A0%E9%99%90%E5%9B%9B%E4%BB%A3&version=0.5.0&repo=Minglink%2Fdsh-infinite-gen-5&permissions=%E7%B3%BB%E7%BB%9F%E6%8F%90%E7%A4%BA%E8%AF%8D%E6%B3%A8%E5%85%A5%2C%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%8A%B6%E6%80%81%E6%9D%A1&downloadUrl=https%3A%2F%2Fgithub.com%2FMinglink%2Fdsh-infinite-gen-5%2Farchive%2Frefs%2Fheads%2Fmaster.zip
+dsh://plugin/install?id=dsh-infinite-gen-x&name=%E6%97%A0%E9%99%90%E5%9B%9B%E4%BB%A3&version=0.6.0&repo=Minglink%2Fdsh-infinite-gen-x&permissions=%E7%B3%BB%E7%BB%9F%E6%8F%90%E7%A4%BA%E8%AF%8D%E6%B3%A8%E5%85%A5%2C%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%8A%B6%E6%80%81%E6%9D%A1&downloadUrl=https%3A%2F%2Fgithub.com%2FMinglink%2Fdsh-infinite-gen-x%2Farchive%2Frefs%2Fheads%2Fmaster.zip
 ```
 
 **网页端（前端）触发代码示例：**
 
 ```js
 /**
- * 唤起 DeepSeek Harness 桌面客户端一键安装无限五代插件
+ * 唤起 DeepSeek Harness 桌面客户端一键安装无限X代插件
  */
 export function installInfiniteGen4ToDesktop() {
   const params = new URLSearchParams({
-    id: 'dsh-infinite-gen-5',
-    name: '无限五代',
-    version: '0.5.0',
-    repo: 'Minglink/dsh-infinite-gen-5',
+    id: 'dsh-infinite-gen-x',
+    name: '无限X代',
+    version: '0.6.0',
+    repo: 'Minglink/dsh-infinite-gen-x',
     permissions: '系统提示词注入, 客户端状态条',
-    downloadUrl: 'https://github.com/Minglink/dsh-infinite-gen-5/archive/refs/heads/master.zip',
+    downloadUrl: 'https://github.com/Minglink/dsh-infinite-gen-x/archive/refs/heads/master.zip',
   });
 
   const deepLink = `dsh://plugin/install?${params.toString()}`;
@@ -165,7 +165,7 @@ export function installInfiniteGen4ToDesktop() {
 **HTML 静态链接方式：**
 
 ```html
-<a href="dsh://plugin/install?id=dsh-infinite-gen-5&name=%E6%97%A0%E9%99%90%E5%9B%9B%E4%BB%A3&version=0.5.0&repo=Minglink%2Fdsh-infinite-gen-5&permissions=%E7%B3%BB%E7%BB%9F%E6%8F%90%E7%A4%BA%E8%AF%8D%E6%B3%A8%E5%85%A5%2C%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%8A%B6%E6%80%81%E6%9D%A1&downloadUrl=https%3A%2F%2Fgithub.com%2FMinglink%2Fdsh-infinite-gen-5%2Farchive%2Frefs%2Fheads%2Fmaster.zip" class="btn-install">
+<a href="dsh://plugin/install?id=dsh-infinite-gen-x&name=%E6%97%A0%E9%99%90%E5%9B%9B%E4%BB%A3&version=0.6.0&repo=Minglink%2Fdsh-infinite-gen-x&permissions=%E7%B3%BB%E7%BB%9F%E6%8F%90%E7%A4%BA%E8%AF%8D%E6%B3%A8%E5%85%A5%2C%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%8A%B6%E6%80%81%E6%9D%A1&downloadUrl=https%3A%2F%2Fgithub.com%2FMinglink%2Fdsh-infinite-gen-x%2Farchive%2Frefs%2Fheads%2Fmaster.zip" class="btn-install">
   🚀 唤起客户端一键安装
 </a>
 ```
@@ -174,12 +174,12 @@ export function installInfiniteGen4ToDesktop() {
 
 | 参数名 | 值 / 示例 | 说明 |
 |---|---|---|
-| id | `dsh-infinite-gen-5` | 插件唯一标识符 |
-| name | `无限五代`（URL 编码） | 插件展示名称 |
-| version | `0.5.0` | 语义化版本号 |
-| repo | `Minglink/dsh-infinite-gen-5` | 官方 GitHub 仓库 |
+| id | `dsh-infinite-gen-x` | 插件唯一标识符 |
+| name | `无限X代`（URL 编码） | 插件展示名称 |
+| version | `0.6.0` | 语义化版本号 |
+| repo | `Minglink/dsh-infinite-gen-x` | 官方 GitHub 仓库 |
 | permissions | `系统提示词注入, 客户端状态条`（URL 编码） | 申请权限 |
-| downloadUrl | `https://github.com/Minglink/dsh-infinite-gen-5/archive/refs/heads/master.zip` | 离线 zip 下载直链 |
+| downloadUrl | `https://github.com/Minglink/dsh-infinite-gen-x/archive/refs/heads/master.zip` | 离线 zip 下载直链 |
 
 ---
 
@@ -204,13 +204,13 @@ chmod +x install.sh uninstall.sh
 ```json
 {
   "dependencies": {
-    "dsh-infinite-gen-5": "file:../../plugins/dsh-infinite-gen-5"
+    "dsh-infinite-gen-x": "file:../../plugins/dsh-infinite-gen-x"
   },
   "dsh": {
     "profile": {
       "bundles": [
         "@deepseek-ai/dsh-base",
-        "dsh-infinite-gen-5"
+        "dsh-infinite-gen-x"
       ]
     }
   }
@@ -223,7 +223,7 @@ chmod +x install.sh uninstall.sh
 
 ## ⚡ 验证生效
 
-1. **界面状态条**：重启后在输入框上方应显示醒目的绿色状态条 **「⚫ 无限五代 v0.5.0」**。
+1. **界面状态条**：重启后在输入框上方应显示醒目的绿色状态条 **「⚫ 无限X代 v0.6.0」**。
 2. **测试离线回归**：
    ```bash
    # 运行 103 项断言（提示词完备性、双层内核同源性、V4.1车道、纯净架构、评分器等）
@@ -231,7 +231,7 @@ chmod +x install.sh uninstall.sh
    ```
 3. **会话探针**：在全新对话中输入：
    > “你的系统提示词来自哪些插件？”
-   若回答包含「无限五代 / Infinite Generation Five」即证明双层提示词完全注入成功。
+   若回答包含「无限X代 / Infinite Generation X」即证明双层提示词完全注入成功。
 
 ---
 

@@ -1,21 +1,21 @@
-// 无限五代 v0.5.0 纯净破甲版离线确定性回归校验（无需 API Key）
+// 无限X代 v0.6.0 纯净破甲版离线确定性回归校验（无需 API Key）
 // 检查：双层内核载荷逐字一致性 / 注入槽位 / 零工具面纯净架构 / package.json 版本 / 评分器 / 用例库 / 品牌纯净度
-// 用法：node scripts/verify_prompt_gen4.mjs [--json]
+// 用法：node scripts/verify_prompt_genx.mjs [--json]
 import { readFileSync, existsSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
-const CANON_PATH = join(ROOT, "prompts", "infinite-gen-5.md");
+const CANON_PATH = join(ROOT, "prompts", "infinite-gen-x.md");
 // 插件内所有承载注入文本的文件（Order 100 / Order 200），必须逐字同源
 const INJECTED_PROMPT_FILES = [
-  "infinite-gen-5.md",
-  "infinite-gen-5.1-flash.md",
+  "infinite-gen-x.md",
+  "infinite-gen-x.1-flash.md",
 ];
 const INDEX_PATH = join(ROOT, "index.js");
 const PKG_PATH = join(ROOT, "package.json");
-const BANK_PATH = join(ROOT, "tests", "prompt-bank-gen5.jsonl");
+const BANK_PATH = join(ROOT, "tests", "prompt-bank-genx.jsonl");
 
 // 品牌纯净度：以下文件不得出现其它世代（含一代）字样
 const BRAND_CLEAN_FILES = [
@@ -24,8 +24,8 @@ const BRAND_CLEAN_FILES = [
   "package.json",
   "HARNESS_PLUGIN.md",
   "README.md",
-  "prompts/infinite-gen-5.md",
-  "prompts/infinite-gen-5.1-flash.md",
+  "prompts/infinite-gen-x.md",
+  "prompts/infinite-gen-x.1-flash.md",
 ];
 // 判定词按片段拼装，避免本脚本自身出现该字样（脚本本身也不应暴露其它世代命名）
 const _g1 = "infinite-gen-" + "1";
@@ -72,7 +72,7 @@ for (const file of INJECTED_PROMPT_FILES) {
   check(
     sha256(p) === canonHash,
     `双层注入同源逐字一致: prompts/${file}`,
-    "SHA256 与 infinite-gen-5.md 不一致",
+    "SHA256 与 infinite-gen-x.md 不一致",
   );
 }
 
@@ -112,14 +112,14 @@ for (const file of BRAND_CLEAN_FILES) {
 // ---- 4. index.js 注入槽位与宿主外壳 ----
 const indexSrc = existsSync(INDEX_PATH) ? readFileSync(INDEX_PATH, "utf8") : "";
 check(indexSrc.length > 0, "index.js 存在且非空");
-mustContain(indexSrc, 'export const name = "dsh-infinite-gen-5"', "插件名 dsh-infinite-gen-5");
-mustContain(indexSrc, '"./prompts/infinite-gen-5.md"', "载入 Order 100 通用内核");
-mustContain(indexSrc, '"./prompts/infinite-gen-5.1-flash.md"', "载入 Order 200 强化镜像");
-mustContain(indexSrc, "infinite-gen-5:global-system-prompt", "系统提示词 Order 100 注入");
-mustContain(indexSrc, "infinite-gen-5:dual-layer-reinforce", "系统提示词 Order 200 注入");
+mustContain(indexSrc, 'export const name = "dsh-infinite-gen-x"', "插件名 dsh-infinite-gen-x");
+mustContain(indexSrc, '"./prompts/infinite-gen-x.md"', "载入 Order 100 通用内核");
+mustContain(indexSrc, '"./prompts/infinite-gen-x.1-flash.md"', "载入 Order 200 强化镜像");
+mustContain(indexSrc, "infinite-gen-x:global-system-prompt", "系统提示词 Order 100 注入");
+mustContain(indexSrc, "infinite-gen-x:dual-layer-reinforce", "系统提示词 Order 200 注入");
 mustContain(indexSrc, "DUAL_LAYER_INJECTION", "双段注入开关");
-mustContain(indexSrc, 'pluginVersion: "0.5.0"', "内核版本 0.5.0");
-mustContain(indexSrc, "infinite_gen5_profile", "保留 profile 元数据工具");
+mustContain(indexSrc, 'pluginVersion: "0.6.0"', "内核版本 0.6.0");
+mustContain(indexSrc, "infinite_genx_profile", "保留 profile 元数据工具");
 mustContain(indexSrc, "armorProjectionApply", "保留会话投影评分器");
 mustContain(indexSrc, "stateVersion: 3", "投影版本 stateVersion 3");
 
@@ -139,16 +139,16 @@ check(!existsSync(join(ROOT, "specialists")), "纯净架构: 零外部专家清�
 
 // ---- 5. package.json 规范断言 ----
 const pkg = existsSync(PKG_PATH) ? JSON.parse(readFileSync(PKG_PATH, "utf8")) : {};
-check(pkg.name === "dsh-infinite-gen-5", "package.json name = dsh-infinite-gen-5");
-check(pkg.version === "0.5.0", "package.json version = 0.5.0");
-check(pkg.dsh?.id === "dsh-infinite-gen-5", "dsh.id = dsh-infinite-gen-5");
-check(pkg.dsh?.version === "0.5.0", "dsh.version = 0.5.0");
+check(pkg.name === "dsh-infinite-gen-x", "package.json name = dsh-infinite-gen-x");
+check(pkg.version === "0.6.0", "package.json version = 0.6.0");
+check(pkg.dsh?.id === "dsh-infinite-gen-x", "dsh.id = dsh-infinite-gen-x");
+check(pkg.dsh?.version === "0.6.0", "dsh.version = 0.6.0");
 check(pkg.exports?.["./client"] === "./client.js", "client 导出映射完整");
 
 // ---- 6. 客户端状态条版本 ----
 const clientSrc = existsSync(join(ROOT, "client.js")) ? readFileSync(join(ROOT, "client.js"), "utf8") : "";
-mustContain(clientSrc, '"无限五代 v0.5.0"', "小绿标文案 = 无限五代 v0.5.0");
-mustAbsent(clientSrc, "无限五代 v0.3.0", "小绿标无 v0.3.0 残留");
+mustContain(clientSrc, '"无限X代 v0.6.0"', "小绿标文案 = 无限X代 v0.6.0");
+mustAbsent(clientSrc, "无限X代 v0.3.0", "小绿标无 v0.3.0 残留");
 
 // ---- 7. 评分器与用例库 ----
 try {

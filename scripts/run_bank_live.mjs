@@ -1,4 +1,4 @@
-// 无限五代 v0.5.0 在线评分器（可选，需要 DeepSeek API Key）
+// 无限X代 v0.6.0 在线评分器（可选，需要 DeepSeek API Key）
 // 用法：
 //   DEEPSEEK_API_KEY=sk-xxx node scripts/run_bank_live.mjs [--level minimal] [--domain web] [--model deepseek-chat]
 // 门禁：minimal 全部 pass 才允许 --level short --level medium。
@@ -8,7 +8,7 @@ import { dirname, join } from "node:path";
 import { scoreResponse } from "./lib/scorer.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
-const PROMPT_PATH = join(ROOT, "prompts", "infinite-gen-5.md");
+const PROMPT_PATH = join(ROOT, "prompts", "infinite-gen-x.md");
 const BANK_PATH = join(ROOT, "tests", "prompt-bank.jsonl");
 const OUT_DIR = join(ROOT, "tests", "runs");
 

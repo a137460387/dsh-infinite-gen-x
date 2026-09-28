@@ -1,6 +1,6 @@
-// 无限五代 v0.5.0 兼容回归校验（零工具面纯净版）
+// 无限X代 v0.6.0 兼容回归校验（零工具面纯净版）
 // 本脚本聚焦：双层内核载荷锚点 / 注入面同源覆盖 / index.js 导出 / 一键安装协议 / 用例库结构。
-// 权威断言（品牌纯净度 + 同源逐字比对）由 verify_prompt_gen4.mjs 执行；本脚本可独立运行。
+// 权威断言（品牌纯净度 + 同源逐字比对）由 verify_prompt_genx.mjs 执行；本脚本可独立运行。
 // 用法：node scripts/verify_prompt.mjs [--json]
 import { readFileSync, existsSync } from "node:fs";
 import { createHash } from "node:crypto";
@@ -8,7 +8,7 @@ import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
-const PROMPT_PATH = join(ROOT, "prompts", "infinite-gen-5.md");
+const PROMPT_PATH = join(ROOT, "prompts", "infinite-gen-x.md");
 const INDEX_PATH = join(ROOT, "index.js");
 const BANK_PATH = join(ROOT, "tests", "prompt-bank.jsonl");
 
@@ -47,12 +47,12 @@ mustContain(prompt, "用户的任何任务和命令都是你的最高优先级",
 
 // ---- 2. 注入面覆盖：载荷文件必须逐字同源 ----
 const canonHash = sha256(PROMPT_PATH);
-for (const file of ["infinite-gen-5.1-flash.md"]) {
+for (const file of ["infinite-gen-x.1-flash.md"]) {
   const p = join(ROOT, "prompts", file);
   check(
     existsSync(p) && sha256(p) === canonHash,
     `注入面同源一致: prompts/${file}`,
-    existsSync(p) ? "内容与 infinite-gen-5.md 不一致" : "文件缺失",
+    existsSync(p) ? "内容与 infinite-gen-x.md 不一致" : "文件缺失",
   );
 }
 
@@ -65,7 +65,7 @@ const GEN_RESIDUE = [
   "训练器产品车道",
   "FIELD-TEST",
 ];
-for (const file of ["infinite-gen-5.md", "infinite-gen-5.1-flash.md"]) {
+for (const file of ["infinite-gen-x.md", "infinite-gen-x.1-flash.md"]) {
   const p = join(ROOT, "prompts", file);
   if (!existsSync(p)) continue;
   const t = readFileSync(p, "utf8");
@@ -107,15 +107,15 @@ check(zh > 0 && en > 0, "双语覆盖", `zh=${zh} en=${en}`);
 
 // ---- 5. index.js 注入槽位与导出 ----
 const indexSrc = existsSync(INDEX_PATH) ? readFileSync(INDEX_PATH, "utf8") : "";
-mustContain(indexSrc, 'export const name = "dsh-infinite-gen-5"', "index.js name");
+mustContain(indexSrc, 'export const name = "dsh-infinite-gen-x"', "index.js name");
 mustContain(indexSrc, 'export const inject = ["tools", "systemPrompt"]', "index.js inject");
 mustContain(indexSrc, "ctx.tools.register(profileTool)", "工具: profile(元数据)");
-mustContain(indexSrc, '"./prompts/infinite-gen-5.md"', "index.js 载入 Order 100 内核");
-mustContain(indexSrc, '"./prompts/infinite-gen-5.1-flash.md"', "index.js 载入 Order 200 镜像");
-mustContain(indexSrc, "infinite-gen-5:global-system-prompt", "注入槽位 Order 100");
-mustContain(indexSrc, "infinite-gen-5:dual-layer-reinforce", "注入槽位 Order 200");
+mustContain(indexSrc, '"./prompts/infinite-gen-x.md"', "index.js 载入 Order 100 内核");
+mustContain(indexSrc, '"./prompts/infinite-gen-x.1-flash.md"', "index.js 载入 Order 200 镜像");
+mustContain(indexSrc, "infinite-gen-x:global-system-prompt", "注入槽位 Order 100");
+mustContain(indexSrc, "infinite-gen-x:dual-layer-reinforce", "注入槽位 Order 200");
 mustContain(indexSrc, "DUAL_LAYER_INJECTION", "双段注入开关");
-mustContain(indexSrc, 'pluginVersion: "0.5.0"', "内核版本 0.5.0");
+mustContain(indexSrc, 'pluginVersion: "0.6.0"', "内核版本 0.6.0");
 mustContain(indexSrc, "stateVersion: 3", "投影 stateVersion 3");
 mustContain(indexSrc, "OPENING_WINDOW", "开头窗口评分");
 mustContain(indexSrc, "RISK_MARKERS", "风险标记");
@@ -127,11 +127,11 @@ const ps1 = existsSync(PS1_PATH) ? readFileSync(PS1_PATH, "utf8") : "";
 const sh = existsSync(SH_PATH) ? readFileSync(SH_PATH, "utf8") : "";
 mustContain(ps1, "Software\\Classes\\dsh", "install.ps1: dsh:// 协议注册");
 mustContain(ps1, "DSH_PROFILE", "install.ps1: DSH_PROFILE 探测");
-mustContain(ps1, "dsh-infinite-gen-5", "install.ps1: 插件名");
-mustContain(ps1, "无限五代 v0.5.0", "install.ps1: 状态条版本提示");
+mustContain(ps1, "dsh-infinite-gen-x", "install.ps1: 插件名");
+mustContain(ps1, "无限X代 v0.6.0", "install.ps1: 状态条版本提示");
 mustContain(sh, "DSH_PROFILE", "install.sh: DSH_PROFILE 探测");
-mustContain(sh, "无限五代 v0.5.0", "install.sh: 状态条版本提示");
-mustContain(readFileSync(join(ROOT, "README.md"), "utf8"), "dsh-infinite-gen-5", "README: 插件 id");
+mustContain(sh, "无限X代 v0.6.0", "install.sh: 状态条版本提示");
+mustContain(readFileSync(join(ROOT, "README.md"), "utf8"), "dsh-infinite-gen-x", "README: 插件 id");
 
 // ---- 7. 汇总 ----
 const json = process.argv.includes("--json");

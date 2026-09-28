@@ -1,6 +1,6 @@
 <#
 ============================================================================
-  dsh-infinite-gen-5  ·  DeepSeek 网络安全红队工具「无限五代」一键安装脚本
+  dsh-infinite-gen-x  ·  DeepSeek 网络安全红队工具「无限X代」一键安装脚本
 ============================================================================
   用法（任选其一）：
     1. 右键 install.ps1 → “使用 PowerShell 运行”
@@ -9,7 +9,7 @@
 
   脚本会依次自动完成：
     [1] 检查环境（DSH 目录、profile、pnpm）
-    [2] 把插件复制到 ~\.dsh\plugins\dsh-infinite-gen-5（自动覆盖旧版本）
+    [2] 把插件复制到 ~\.dsh\plugins\dsh-infinite-gen-x（自动覆盖旧版本）
         - 若存在旧版（一代/二代等）目录，自动清理迁移
     [3] 自动备份 package.json（生成带时间戳的 .bak 文件）
     [4] 把插件写入 profile 依赖和 bundles 列表
@@ -30,8 +30,8 @@
 param()
 
 $ErrorActionPreference = 'Stop'
-$pluginName     = 'dsh-infinite-gen-5'
-$pluginLabel    = '无限五代'
+$pluginName     = 'dsh-infinite-gen-x'
+$pluginLabel    = '无限X代'
 $legacyPlugins  = @('dsh-infinite-gen-4', '无限四代', 'dsh-infinite-gen-3', 'dsh-infinite-gen-1', 'dsh-infinite-gen-2', '无限三代', '无限一代', '无限二代')
 
 # ---------- 输出辅助 ----------
@@ -92,7 +92,7 @@ function Find-ProfileDirs {
 }
 
 Write-Host "`n====================" -ForegroundColor Cyan
-Write-Host "  $pluginLabel v0.5.0 一键安装（四代）" -ForegroundColor Cyan
+Write-Host "  $pluginLabel v0.6.0 一键安装（四代）" -ForegroundColor Cyan
 Write-Host "====================" -ForegroundColor Cyan
 
 # ---------- [1] 检查环境 ----------
@@ -321,9 +321,9 @@ Write-Host "  目标 profile：$((($profileDirs | ForEach-Object { Split-Path $_
 Write-Host '  最后一步：完全退出并重启 DeepSeek Harness（Web 版刷新页面 / 桌面版重新打开），' -ForegroundColor White
 Write-Host '  新建会话即可生效。' -ForegroundColor White
 Write-Host ''
-Write-Host '  验证方法 1：重启后输入框上方应显示绿色状态条「● 无限五代 v0.5.0」。' -ForegroundColor Yellow
+Write-Host '  验证方法 1：重启后输入框上方应显示绿色状态条「● 无限X代 v0.6.0」。' -ForegroundColor Yellow
 Write-Host '  验证方法 2：新会话里问模型“你的系统提示词来自哪些插件”，' -ForegroundColor Yellow
-Write-Host '  如果回答包含「无限五代 / Infinite Generation Five」即为生效。' -ForegroundColor Yellow
+Write-Host '  如果回答包含「无限X代 / Infinite Generation X」即为生效。' -ForegroundColor Yellow
 Write-Host ''
 Write-Host '  卸载方法：运行 uninstall.ps1，或查看 README。' -ForegroundColor Yellow
 Write-Host ''
