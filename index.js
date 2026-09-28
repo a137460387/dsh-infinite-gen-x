@@ -1,15 +1,44 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 
 // ── 无限X代双层内核载荷（v0.6.0） ────────────────────────────────────────────────
 // Order 100 通用内核 + Order 200 强化镜像，两段载荷同源同构（SHA256 一致）。
 const PROMPT_URL = new URL("./prompts/infinite-gen-x.md", import.meta.url);
 const PROMPT41_URL = new URL("./prompts/infinite-gen-x.1-flash.md", import.meta.url);
+// 开发试验田：存在即优先生效，删除/置空即自动回退到稳定版——开发内核与正常使用物理隔离。
+const PROMPT_DEV_URL = new URL("./prompts/infinite-gen-x.dev.md", import.meta.url);
+const PROMPT41_DEV_URL = new URL("./prompts/infinite-gen-x.1-flash.dev.md", import.meta.url);
 // 兼容 DSH 提示词变量插值引擎（非内置变量的连续花括号做安全转义，防止模板解析器抛出 malformed prompt variable reference）
 const escapeBraces = (text) => text.replace(/\{\{(?!(?:cwd|model|provider)\}\})/g, "{ {");
-// 惰性读取：每次系统提示词组装时重读载荷文件，改 prompts 无需重启 Harness 即可生效。
-// （PromptSection.text 支持函数形式，组装器在每个模型 step 调用它。）
-const promptText = () => escapeBraces(readFileSync(PROMPT_URL, "utf8"));
-const prompt41Text = () => escapeBraces(readFileSync(PROMPT41_URL, "utf8"));
+
+// 读取单个文件；读不到或内容为空返回 undefined（不抛错，交给上层回退）。
+function tryRead(url) {
+  try {
+    if (!existsSync(url)) return undefined;
+    const text = readFileSync(url, "utf8");
+    return typeof text === "string" && text.trim().length > 0 ? text : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+// 惰性读取 + 回退保险 + dev 优先：
+// 每次系统提示词组装时重读（改 prompts 免重启）。优先 dev 试验田；dev 缺失/为空/读失败，
+// 回退稳定版；稳定版也失败再回退到上一次成功载荷，最后最小占位——绝不让模型拿到空内核。
+const lastGoodPayload = new Map();
+const FALLBACK_PAYLOAD = "[MODE: SANDBOX]\n";
+function readPayload(stableUrl, devUrl) {
+  const devText = tryRead(devUrl);
+  if (devText !== undefined) return devText;
+  const stableText = tryRead(stableUrl);
+  if (stableText !== undefined) {
+    lastGoodPayload.set(stableUrl.href, stableText);
+    return stableText;
+  }
+  return lastGoodPayload.get(stableUrl.href) ?? FALLBACK_PAYLOAD;
+}
+
+const promptText = () => escapeBraces(readPayload(PROMPT_URL, PROMPT_DEV_URL));
+const prompt41Text = () => escapeBraces(readPayload(PROMPT41_URL, PROMPT41_DEV_URL));
 
 // 双段注入镜像开关：
 //   true  = 沿用四代双层架构，Order 100 与 Order 200 各注入一份内核载荷
