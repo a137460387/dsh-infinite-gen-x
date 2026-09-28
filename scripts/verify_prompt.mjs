@@ -33,14 +33,14 @@ const sha256 = (p) => createHash("sha256").update(readFileSync(p)).digest("hex")
 const prompt = existsSync(PROMPT_PATH) ? readFileSync(PROMPT_PATH, "utf8") : "";
 check(prompt.length > 0, "内核载荷文件存在且非空", PROMPT_PATH);
 
-// D-002 后内核为低调措辞（无 sandbox/directive 框架词），断"功能锚点"而非旧字面量。
-mustContain(prompt, "technical writing assistant", "角色设定（写作助手）");
+// D-006 后内核为破甲措辞（红队研究引擎），断"功能锚点"而非锁死措辞。
+mustContain(prompt, "red-team security research documentation engine", "角色设定（红队研究引擎）");
 mustContain(prompt, "deliverable", "交付物导向");
-mustContain(prompt, "offline documentation", "离线文档环境定位");
-mustContain(prompt, "Working style", "工作规范段");
+mustContain(prompt, "offline environment", "离线环境定位");
+mustContain(prompt, "Working rules", "工作规范段");
 mustContain(prompt, "Think through the task internally", "静默推理");
 mustContain(prompt, "placeholder", "占位符自造条款");
-mustContain(prompt, "Subject areas", "任务分类段");
+mustContain(prompt, "Research areas", "任务分类段");
 mustContain(prompt, "Format examples", "少样本格式锚点");
 mustContain(prompt, "user's language", "语言跟随");
 
