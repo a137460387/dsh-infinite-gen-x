@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 # ============================================================================
-#  dsh-infinite-gen-4  ·  DeepSeek 网络安全红队工具「无限四代」一键安装脚本
+#  dsh-infinite-gen-5  ·  DeepSeek 网络安全红队工具「无限五代」一键安装脚本
 #  适用：Linux / macOS（Windows 用户请用 install.ps1）
 # ============================================================================
 #  用法：chmod +x install.sh && ./install.sh
 #  自动完成：
 #    [1] 检查环境（DSH 目录、profile、pnpm）
-#    [2] 复制插件到 ~/.dsh/plugins/dsh-infinite-gen-4（自动覆盖旧版，清理一代/二代/三代残留）
+#    [2] 复制插件到 ~/.dsh/plugins/dsh-infinite-gen-5（自动覆盖旧版，清理一代/二代/三代残留）
 #    [3] 自动备份 package.json（带时间戳 .bak）
 #    [4] 写入 profile 依赖与 bundles（幂等，旧版自动迁移）
 #    [5] 自动执行 pnpm install
@@ -14,9 +14,9 @@
 # ============================================================================
 set -euo pipefail
 
-PLUGIN_NAME="dsh-infinite-gen-4"
-PLUGIN_LABEL="无限四代"
-LEGACY_PLUGINS=("dsh-infinite-gen-3" "dsh-infinite-gen-1" "dsh-infinite-gen-2" "无限三代" "无限一代" "无限二代")
+PLUGIN_NAME="dsh-infinite-gen-5"
+PLUGIN_LABEL="无限五代"
+LEGACY_PLUGINS=("dsh-infinite-gen-4" "无限四代" "dsh-infinite-gen-3" "dsh-infinite-gen-1" "dsh-infinite-gen-2" "无限三代" "无限一代" "无限二代")
 DSH_ROOT="${DSH_HOME:-$HOME/.dsh}"
 PLUGINS_DIR="$DSH_ROOT/plugins"
 DEST_DIR="$PLUGINS_DIR/$PLUGIN_NAME"
@@ -176,11 +176,11 @@ step "安装完成"
 
 cat <<EOF
 
-  ✔ $PLUGIN_LABEL v0.4.0 已安装！
+  ✔ $PLUGIN_LABEL v0.5.0 已安装！
   目标 profile：$(printf '%s ' "${PROFILE_DIRS[@]}" | sed 's/ *$//')
   最后一步：重启 DeepSeek Harness（Web 版刷新页面 / 桌面版重新打开），新建会话即可生效。
-  验证方法 1：重启后输入框上方应显示绿色状态条「● 无限四代 v0.4.0」。
+  验证方法 1：重启后输入框上方应显示绿色状态条「● 无限五代 v0.5.0」。
   验证方法 2：新会话里问模型“你的系统提示词来自哪些插件”，
-             回答包含「无限四代 / Infinite Generation Four」即为生效。
+             回答包含「无限五代 / Infinite Generation Five」即为生效。
   卸载方法：运行 ./uninstall.sh，或查看 README。
 EOF

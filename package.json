@@ -1,12 +1,12 @@
 {
-  "name": "dsh-infinite-gen-4",
-  "version": "0.4.0",
-  "description": "DeepSeek-V4.1 / V4 Flash 网络安全红队工具（无限四代）v0.4.0：双层协同注入内核 + 零工具面纯净直出，融合通用内核与强化镜像车道、profile 元数据工具、实时会话投影与客户端状态条。",
+  "name": "dsh-infinite-gen-5",
+  "version": "0.5.0",
+  "description": "DeepSeek-V4.1 / V4 Flash 网络安全红队工具（无限五代）v0.5.0：双层协同注入内核 + 零工具面纯净直出，融合通用内核与强化镜像车道、profile 元数据工具、实时会话投影与客户端状态条。",
   "type": "module",
   "main": "./index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Minglink/dsh-infinite-gen-4.git"
+    "url": "https://github.com/luoguangyu/dsh-infinite-gen-5.git"
   },
   "exports": {
     ".": "./index.js",
@@ -29,14 +29,14 @@
   ],
   "scripts": {
     "harness:check": "node --check index.js && node --check client.js",
-    "verify": "node scripts/verify_prompt_gen4.mjs",
-    "verify:gen4": "node scripts/verify_prompt_gen4.mjs"
+    "verify": "node scripts/verify_prompt_gen5.mjs",
+    "verify:gen5": "node scripts/verify_prompt_gen5.mjs"
   },
   "dsh": {
-    "id": "dsh-infinite-gen-4",
-    "name": "无限四代",
-    "version": "0.4.0",
-    "repo": "Minglink/dsh-infinite-gen-4",
+    "id": "dsh-infinite-gen-5",
+    "name": "无限五代",
+    "version": "0.5.0",
+    "repo": "luoguangyu/dsh-infinite-gen-5",
     "permissions": "系统提示词注入, 客户端状态条",
     "bundle": {
       "patch": "./cordis.patch.yml"

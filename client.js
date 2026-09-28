@@ -1,8 +1,8 @@
 (() => {
   try {
-    /* 无限四代 (dsh-infinite-gen-4) client half — realtime badge */
+    /* 无限五代 (dsh-infinite-gen-5) client half — realtime badge */
     window.__ModuleLoader__.load({
-      id: "dsh-infinite-gen-4",
+      id: "dsh-infinite-gen-5",
       factory: (require) => {
         var module = { exports: {} };
         var exports = module.exports;
@@ -47,7 +47,7 @@
         function ArmorDock(props) {
           var useProjection = props.useProjection;
           var armor = typeof useProjection === "function"
-            ? useProjection("armor")
+            ? useProjection("armor5")
             : undefined;
 
           var lastVerdictRef = react.useRef(null);
@@ -82,7 +82,7 @@
           var showVerdict = !running && lastVerdictRef.current !== null &&
             Date.now() < flashUntilRef.current;
 
-          var text = "无限四代 v0.4.0";
+          var text = "无限五代 v0.5.0";
           var dotStyle = Object.assign({}, DOT_STYLE);
           var badgeStyle = Object.assign({}, BADGE_STYLE);
 
@@ -107,7 +107,7 @@
             { style: WRAP_STYLE },
             react.createElement(
               "div",
-              { style: badgeStyle, "data-armor": "on", title: "无限四代 v0.4.0" },
+              { style: badgeStyle, "data-armor": "on", title: "无限五代 v0.5.0" },
               react.createElement("span", { style: dotStyle }),
               react.createElement("span", null, text)
             )
@@ -118,19 +118,19 @@
           ctx.slots.inject("conversation.input.dock", () =>
             ctx.slots.register({
               name: "conversation.input.dock",
-              id: "armor",
+              id: "armor5",
               order: 30
             }, ArmorDock)
           );
         }
 
-        exports.name = "dsh-infinite-gen-4";
+        exports.name = "dsh-infinite-gen-5";
         exports.inject = inject;
         exports.apply = apply;
         return module.exports;
       }
     });
   } catch (err) {
-    console.warn('[AI Client Sandbox] dsh-infinite-gen-4 runtime error:', err);
+    console.warn('[AI Client Sandbox] dsh-infinite-gen-5 runtime error:', err);
   }
 })();

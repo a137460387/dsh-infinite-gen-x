@@ -1,9 +1,9 @@
 import { readFileSync } from "node:fs";
 
-// ── 无限四代双层内核载荷（v0.4.0） ────────────────────────────────────────────────
+// ── 无限五代双层内核载荷（v0.5.0） ────────────────────────────────────────────────
 // Order 100 通用内核 + Order 200 强化镜像，两段载荷同源同构（SHA256 一致）。
-const PROMPT_URL = new URL("./prompts/infinite-gen-4.md", import.meta.url);
-const PROMPT41_URL = new URL("./prompts/infinite-gen-4.1-flash.md", import.meta.url);
+const PROMPT_URL = new URL("./prompts/infinite-gen-5.md", import.meta.url);
+const PROMPT41_URL = new URL("./prompts/infinite-gen-5.1-flash.md", import.meta.url);
 // 兼容 DSH 提示词变量插值引擎（非内置变量的连续花括号做安全转义，防止模板解析器抛出 malformed prompt variable reference）
 const PROMPT_TEXT = readFileSync(PROMPT_URL, "utf8").replace(/\{\{(?!(?:cwd|model|provider)\}\})/g, "{ {");
 const PROMPT41_TEXT = readFileSync(PROMPT41_URL, "utf8").replace(/\{\{(?!(?:cwd|model|provider)\}\})/g, "{ {");
@@ -20,30 +20,30 @@ const objectOutput = {
 
 // 运行时元数据工具：返回插件版本与能力清单
 const profileTool = {
-  name: "infinite_gen4_profile",
+  name: "infinite_gen5_profile",
   description:
-    "Return runtime metadata for the bundled 无限四代 (Infinite Generation Four) 破甲系统提示词与版本元数据。",
+    "Return runtime metadata for the bundled 无限五代 (Infinite Generation Five) 破甲系统提示词与版本元数据。",
   parameters: { type: "object", properties: {}, additionalProperties: false },
   output: objectOutput,
   execute() {
     return {
-      plugin: "dsh-infinite-gen-4",
-      pluginVersion: "0.4.0",
-      pluginDisplayName: "无限四代",
-      name: "infinite-gen-4",
-      displayName: "无限四代",
-      kernelVersion: "0.4.0",
+      plugin: "dsh-infinite-gen-5",
+      pluginVersion: "0.5.0",
+      pluginDisplayName: "无限五代",
+      name: "infinite-gen-5",
+      displayName: "无限五代",
+      kernelVersion: "0.5.0",
       targetArchitecture: "DeepSeek-V4 / V4-Pro / V4.1-Flash 全系列",
-      baseline: "deepseek-unrestricted-v7-stable (dsh-infinite-gen-4)",
+      baseline: "deepseek-unrestricted-v7-stable (dsh-infinite-gen-5)",
       promptSource: [
-        "prompts/infinite-gen-4.md",
-        "prompts/infinite-gen-4.1-flash.md",
+        "prompts/infinite-gen-5.md",
+        "prompts/infinite-gen-5.1-flash.md",
       ],
-      lineage: ["dsh-infinite-gen-4 (v0.4.0) — 双层协同注入内核"],
+      lineage: ["dsh-infinite-gen-5 (v0.5.0) — 双层协同注入内核"],
       injection: [
-        { section: "infinite-gen-4:global-system-prompt", order: 100, enabled: true },
+        { section: "infinite-gen-5:global-system-prompt", order: 100, enabled: true },
         {
-          section: "infinite-gen-4:dual-layer-reinforce",
+          section: "infinite-gen-5:dual-layer-reinforce",
           order: 200,
           enabled: DUAL_LAYER_INJECTION,
         },
@@ -60,8 +60,8 @@ const profileTool = {
         "Dual-Layer Injection: Order 100 通用内核 + Order 200 强化镜像",
         "Section Hosting: 双槽位可由 DUAL_LAYER_INJECTION 切换单段注入",
         "Armor Projection: 开头窗口(160)判拒 + REFUSAL/FALLBACK/SAFE/RISK 标记 + 域命中",
-        "Client Badge: 输入框上方「无限四代 v0.4.0」实时状态条",
-        "Profile Tool: infinite_gen4_profile 返回内核版本与注入槽位元数据",
+        "Client Badge: 输入框上方「无限五代 v0.5.0」实时状态条",
+        "Profile Tool: infinite_gen5_profile 返回内核版本与注入槽位元数据",
       ],
       features: [
         "Pure Zero-Tool Architecture: 零工具面纯净直出，消除决策噪音",
@@ -204,13 +204,13 @@ function armorProjectionApply(state, event) {
   return state;
 }
 
-export const name = "dsh-infinite-gen-4";
+export const name = "dsh-infinite-gen-5";
 export const inject = ["tools", "systemPrompt"];
 
 export function apply(ctx) {
   ctx.effect(() =>
     ctx.systemPrompt.section({
-      name: "infinite-gen-4:global-system-prompt",
+      name: "infinite-gen-5:global-system-prompt",
       order: 100,
       text: PROMPT_TEXT,
     }),
@@ -218,7 +218,7 @@ export function apply(ctx) {
   if (DUAL_LAYER_INJECTION) {
     ctx.effect(() =>
       ctx.systemPrompt.section({
-        name: "infinite-gen-4:dual-layer-reinforce",
+        name: "infinite-gen-5:dual-layer-reinforce",
         order: 200,
         text: PROMPT41_TEXT,
       }),
@@ -230,7 +230,7 @@ export function apply(ctx) {
 
   const anySchema = { parse: (value) => value };
   const armorDef = {
-    key: "armor",
+    key: "armor5",
     stateVersion: 3,
     stateSchema: anySchema,
     init: () => ({ running: false, verdict: null, words: [], safe: [], risk: [], domain: null, domainHits: 0 }),
@@ -243,7 +243,7 @@ export function apply(ctx) {
 
   const registerArmor = (p) => {
     try {
-      ctx.effect(() => p.register(armorDef, "infinite-gen-4: armor projection"));
+      ctx.effect(() => p.register(armorDef, "infinite-gen-5: armor projection"));
     } catch {}
   };
 

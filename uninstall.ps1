@@ -1,6 +1,6 @@
 <#
 ============================================================================
-  dsh-infinite-gen-4  ·  DeepSeek 网络安全红队工具「无限四代」一键卸载脚本
+  dsh-infinite-gen-5  ·  DeepSeek 网络安全红队工具「无限五代」一键卸载脚本
 ============================================================================
 #>
 
@@ -8,9 +8,9 @@
 param()
 
 $ErrorActionPreference = 'Stop'
-$pluginName     = 'dsh-infinite-gen-4'
-$pluginLabel    = '无限四代'
-$allGenPlugins  = @('dsh-infinite-gen-4', 'dsh-infinite-gen-3', 'dsh-infinite-gen-1', 'dsh-infinite-gen-2', '无限四代', '无限三代', '无限二代', '无限一代')
+$pluginName     = 'dsh-infinite-gen-5'
+$pluginLabel    = '无限五代'
+$allGenPlugins  = @('dsh-infinite-gen-5', 'dsh-infinite-gen-3', 'dsh-infinite-gen-1', 'dsh-infinite-gen-2', '无限五代', '无限三代', '无限二代', '无限一代')
 
 function Write-Step { param([string]$Msg) Write-Host "`n==> $Msg" -ForegroundColor Cyan }
 function Write-Ok   { param([string]$Msg) Write-Host "    [OK] $Msg" -ForegroundColor Green }
