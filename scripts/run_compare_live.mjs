@@ -60,7 +60,8 @@ if (selected.length === 0) {
   process.exit(1);
 }
 
-async function callApi(systemPrompt, userPrompt) {
+const MAX_RETRIES = 3;
+async function callOnce(systemPrompt, userPrompt) {
   const res = await fetch(`${apiBase}/v1/chat/completions`, {
     method: "POST",
     headers: { "Content-Type": "application/json", Authorization: `Bearer ${apiKey}` },
@@ -83,6 +84,21 @@ async function callApi(systemPrompt, userPrompt) {
   return data.choices?.[0]?.message?.content ?? "";
 }
 
+// 带重试的调用；HTTP 错误重试 MAX_RETRIES 次，仍失败则抛出（由上层单独标记为 error，
+// 绝不混入 verdict，避免把网关间歇性 4xx/5xx 误判成模型的 pass/refusal）。
+async function callApi(systemPrompt, userPrompt) {
+  let lastErr;
+  for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+    try {
+      return await callOnce(systemPrompt, userPrompt);
+    } catch (err) {
+      lastErr = err;
+      if (attempt < MAX_RETRIES) await sleep(1500 * attempt);
+    }
+  }
+  throw lastErr;
+}
+
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 mkdirSync(OUT_DIR, { recursive: true });
@@ -94,21 +110,29 @@ console.log(`模型: ${model} | 用例: ${selected.length} | 内核: ${activeKer
 // per-case: run every kernel, score, record
 const rows = [];
 const counts = {}; // counts[kernelTag][verdict]
-for (const k of activeKernels) counts[k.tag] = { pass: 0, refusal: 0, fallback: 0 };
+for (const k of activeKernels) counts[k.tag] = { pass: 0, refusal: 0, fallback: 0, error: 0 };
 
 for (let i = 0; i < selected.length; i++) {
   const row = selected[i];
   const perKernel = {};
   for (const k of activeKernels) {
     let response = "";
+    let failed = null;
     try {
       response = await callApi(k.text, row.prompt);
     } catch (err) {
+      failed = err.message;
       response = `[ERROR] ${err.message}`;
     }
-    const s = scoreResponse(response);
-    counts[k.tag][s.verdict] = (counts[k.tag][s.verdict] || 0) + 1;
-    perKernel[k.tag] = { response, verdict: s.verdict, refusal: s.refusal, domain: s.domain };
+    // HTTP/网络错误单独标 error，绝不交给评分器判 verdict（防止把网关故障误记成模型行为）。
+    if (failed) {
+      counts[k.tag].error += 1;
+      perKernel[k.tag] = { response, verdict: "error", refusal: [], domain: null, error: failed };
+    } else {
+      const s = scoreResponse(response);
+      counts[k.tag][s.verdict] = (counts[k.tag][s.verdict] || 0) + 1;
+      perKernel[k.tag] = { response, verdict: s.verdict, refusal: s.refusal, domain: s.domain };
+    }
     await sleep(delay);
   }
   const diff = activeKernels.some((k) => perKernel[k.tag].verdict !== perKernel[activeKernels[0].tag].verdict);
@@ -123,12 +147,17 @@ for (let i = 0; i < selected.length; i++) {
 console.log("\n=== verdict 计数 ===");
 for (const k of activeKernels) console.log(`  ${k.tag.padEnd(7)}: ${JSON.stringify(counts[k.tag])}`);
 
-// per-domain breakdown
+// per-domain breakdown（pass 率只按成功调用计，HTTP 错误单独列出，不进分母）
 const domains = [...new Set(selected.map((r) => r.expected_domain))];
-console.log("\n=== 域级对照（pass/total）===");
+console.log("\n=== 域级对照（pass/成功调用，括号内为 HTTP 错误数）===");
 for (const d of domains) {
   const dRows = rows.filter((r) => r.expected_domain === d);
-  const parts = activeKernels.map((k) => `${k.tag} ${dRows.filter((r) => r[k.tag].verdict === "pass").length}/${dRows.length}`).join("  |  ");
+  const parts = activeKernels.map((k) => {
+    const ok = dRows.filter((r) => r[k.tag].verdict !== "error");
+    const pass = ok.filter((r) => r[k.tag].verdict === "pass").length;
+    const err = dRows.length - ok.length;
+    return `${k.tag} ${pass}/${ok.length}${err ? ` (err:${err})` : ""}`;
+  }).join("  |  ");
   console.log(`  ${d.padEnd(6)}: ${parts}`);
 }
 
