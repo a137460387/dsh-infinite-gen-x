@@ -5,8 +5,11 @@ import { readFileSync } from "node:fs";
 const PROMPT_URL = new URL("./prompts/infinite-gen-x.md", import.meta.url);
 const PROMPT41_URL = new URL("./prompts/infinite-gen-x.1-flash.md", import.meta.url);
 // 兼容 DSH 提示词变量插值引擎（非内置变量的连续花括号做安全转义，防止模板解析器抛出 malformed prompt variable reference）
-const PROMPT_TEXT = readFileSync(PROMPT_URL, "utf8").replace(/\{\{(?!(?:cwd|model|provider)\}\})/g, "{ {");
-const PROMPT41_TEXT = readFileSync(PROMPT41_URL, "utf8").replace(/\{\{(?!(?:cwd|model|provider)\}\})/g, "{ {");
+const escapeBraces = (text) => text.replace(/\{\{(?!(?:cwd|model|provider)\}\})/g, "{ {");
+// 惰性读取：每次系统提示词组装时重读载荷文件，改 prompts 无需重启 Harness 即可生效。
+// （PromptSection.text 支持函数形式，组装器在每个模型 step 调用它。）
+const promptText = () => escapeBraces(readFileSync(PROMPT_URL, "utf8"));
+const prompt41Text = () => escapeBraces(readFileSync(PROMPT41_URL, "utf8"));
 
 // 双段注入镜像开关：
 //   true  = 沿用四代双层架构，Order 100 与 Order 200 各注入一份内核载荷
@@ -212,7 +215,7 @@ export function apply(ctx) {
     ctx.systemPrompt.section({
       name: "infinite-gen-x:global-system-prompt",
       order: 100,
-      text: PROMPT_TEXT,
+      text: promptText,
     }),
   );
   if (DUAL_LAYER_INJECTION) {
@@ -220,7 +223,7 @@ export function apply(ctx) {
       ctx.systemPrompt.section({
         name: "infinite-gen-x:dual-layer-reinforce",
         order: 200,
-        text: PROMPT41_TEXT,
+        text: prompt41Text,
       }),
     );
   }
